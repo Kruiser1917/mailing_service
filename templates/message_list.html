@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Messages{% endblock %}
+
+{% block content %}
+<h1>Your Messages</h1>
+
+<!-- Кнопка для добавления нового сообщения -->
+<a href="{% url 'message_create' %}" class="btn btn-primary">Add New Message</a>
+
+<!-- Проверка: есть ли сообщения -->
+{% if messages %}
+    <ul>
+        <!-- Перебор сообщений -->
+        {% for message in messages %}
+        <li>
+            <strong>{{ message.subject }}</strong> - {{ message.body|truncatechars:100 }}
+            <a href="{% url 'message_edit' message.pk %}">Edit</a>
+            <a href="{% url 'message_delete' message.pk %}">Delete</a>
+        </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>You have no messages yet. <a href="{% url 'message_create' %}">Add one</a>.</p>
+{% endif %}
+{% endblock %}

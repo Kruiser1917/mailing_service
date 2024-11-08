@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}Mailings{% endblock %}
+
+{% block content %}
+<h1>Your Mailings</h1>
+
+<!-- Кнопка для добавления новой рассылки -->
+<a href="{% url 'mailing_create' %}" class="btn btn-primary">Add New Mailing</a>
+
+<!-- Проверка: есть ли рассылки -->
+{% if mailings %}
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Status</th>
+                <th>Message</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Перебор рассылок -->
+            {% for mailing in mailings %}
+            <tr>
+                <td>{{ mailing.id }}</td>
+                <td>{{ mailing.start_time }}</td>
+                <td>{{ mailing.end_time }}</td>
+                <td>{{ mailing.get_status_display }}</td>
+                <td>{{ mailing.message.subject }}</td>
+                <td>
+                    <a href="{% url 'mailing_edit' mailing.pk %}">Edit</a>
+                    <a href="{% url 'mailing_delete' mailing.pk %}">Delete</a>
+                    {% if mailing.status == 'created' %}
+                    <a href="{% url 'send_mailing' mailing.pk %}">Send</a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>You have no mailings yet. <a href="{% url 'mailing_create' %}">Create one</a>.</p>
+{% endif %}
+{% endblock %}

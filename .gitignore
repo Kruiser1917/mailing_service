@@ -1,0 +1,21 @@
+# Ignore Python cache files
+__pycache__/
+*.py[cod]
+
+# Ignore virtual environments
+.venv/
+venv/
+
+# Ignore Django SQLite database
+db.sqlite3
+
+# Ignore environment variables
+.env
+
+# Ignore IDE/project-specific files
+.idea/
+*.vscode/
+
+# Ignore static and media files (если нужно)
+/static/
+/media/

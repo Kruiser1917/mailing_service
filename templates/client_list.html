@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Clients{% endblock %}
+
+{% block content %}
+<h1>Your Clients</h1>
+
+<!-- Кнопка для добавления нового клиента -->
+<a href="{% url 'client_create' %}" class="btn btn-primary">Add New Client</a>
+
+<!-- Проверка: есть ли клиенты -->
+{% if clients %}
+    <ul>
+        <!-- Перебор клиентов -->
+        {% for client in clients %}
+        <li>
+            {{ client.full_name }} ({{ client.email }})
+            <a href="{% url 'client_edit' client.pk %}">Edit</a>
+            <a href="{% url 'client_delete' client.pk %}">Delete</a>
+        </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>You have no clients yet. <a href="{% url 'client_create' %}">Add one</a>.</p>
+{% endif %}
+{% endblock %}
