@@ -9,3 +9,7 @@ class CustomUser(AbstractUser):
 
     USERNAME_FIELD = 'email'  # Авторизация по email
     REQUIRED_FIELDS = ['username']  # Обязательное поле username
+    class Meta:
+        permissions = [
+            ("view_all_mailings", "Can view all mailings"),
+        ]
